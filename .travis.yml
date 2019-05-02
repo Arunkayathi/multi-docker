@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+
+before_install:
+  - docker build -t arunkayathi/fibonacci-test -f ./client/Dockerfile.dev ./client
+
+
+script:
+  - docker run arunkayathi/fibonacci-test npm test -- --coverage
+
+after_success:
+  - docker build -t arunkayathi/fibonacci-multi-client ./client
+  - docker build -t arunkayathi/fibonacci-multi-nginx ./nginx
+  - docker build -t arunkayathi/fibonacci-multi-worker ./worker
+  - docker build -t arunkayathi/fibonacci-multi-server ./server
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push arunkayathi/fibonacci-multi-client
+  - docker push arunkayathi/fibonacci-multi-nginx
+  - docker push arunkayathi/fibonacci-multi-worker
+  - docker push arunkayathi/fibonacci-multi-server

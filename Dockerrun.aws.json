@@ -1,0 +1,34 @@
+{
+    "AWSEBDockerrunVersion":2,
+    "containerDefinitions":[
+        {
+            "name": "client",
+            "image":"arunreddy2786/fibonacci-multi-client:latest",
+            "hostName":"client",
+            "essential": false 
+        },
+        {
+            "name": "worker",
+            "image":"arunreddy2786/fibonacci-multi-worker:latest",
+            "essential": false 
+        },
+        {
+            "name": "server",
+            "image":"arunreddy2786/fibonacci-multi-server:latest",
+            "hostName":"api",
+            "essential": false 
+        },
+        {
+            "name": "nginx",
+            "image":"arunreddy2786/fibonacci-multi-nginx:latest",
+            "essential": true,
+            "portMappings":[
+                {
+                    "hostPort":80,
+                    "containerPort":80
+                }
+            ],
+            "links":["client", "server"]
+        }
+    ]
+}

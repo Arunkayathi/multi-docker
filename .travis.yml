@@ -20,3 +20,17 @@ after_success:
   - docker push arunreddy2786/fibonacci-multi-nginx
   - docker push arunreddy2786/fibonacci-multi-worker
   - docker push arunreddy2786/fibonacci-multi-server
+
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "fibonacci-multi-docker"
+  env: "FibonacciMultiDocker-env"
+  bucket_name: "elasticbeanstalk-us-east-2-154242726126"
+  bucket_path: "fibonacci-multi-docker"
+  on:
+    branch: master #Only the code from master branch gets deployed
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"

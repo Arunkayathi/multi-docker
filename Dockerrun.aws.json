@@ -4,7 +4,7 @@
         {
             "name": "client",
             "image":"arunreddy2786/fibonacci-multi-client:latest",
-            "hostName":"client",
+            "hostname":"client",
             "essential": false,
             "memory": 128
         },
@@ -17,7 +17,7 @@
         {
             "name": "server",
             "image":"arunreddy2786/fibonacci-multi-server:latest",
-            "hostName":"api",
+            "hostname":"api",
             "essential": false,
             "memory": 128
         },
